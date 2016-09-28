@@ -1,0 +1,14 @@
+{
+  "name": "phoenix_ujs",
+  "version": "1.0.0",
+  "description": "**TODO: Add description**",
+  "main": "src/ujs.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergey Pchelintsev",
+  "license": "ISC"
+}
