@@ -1,14 +1,26 @@
 {
   "name": "phoenix_ujs",
-  "version": "1.0.0",
-  "description": "**TODO: Add description**",
-  "main": "src/ujs.js",
-  "directories": {
-    "test": "test"
-  },
+  "version": "0.2.0",
+  "description": "Unobtrusive JS toolset for Phoenix framework",
+  "main": "ujs.cjs.js",
+  "repository": "git@github.com:jalkoby/phoenix_ujs.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "release": "node ./build.js && npm publish ./dist"
   },
   "author": "Sergey Pchelintsev",
-  "license": "ISC"
+  "license": "MIT",
+  "keywords": [
+    "ujs",
+    "phoenix"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "del": "^2.2.2",
+    "rollup": "^0.36.1",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-browser": "^0.1.0",
+    "rollup-plugin-commonjs": "^5.0.4",
+    "rollup-plugin-uglify": "^1.0.1"
+  }
 }

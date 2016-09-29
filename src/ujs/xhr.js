@@ -1,4 +1,6 @@
-const noop = function() {};
+import csrf from "./csrf";
+
+function noop() {};
 
 function runEvent(target, name, data) {
   var event = document.createEvent('Event');
@@ -29,13 +31,13 @@ function setXHRData(xhr, data, type) {
   }
 }
 
-module.exports = function(url, method, options) {
+export default function(url, method, options) {
   options = options || {};
 
   var xhr = new XMLHttpRequest();
   xhr.open(method, url);
   xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
-  xhr.setRequestHeader('x-csrf-token', UJS.csrf.token);
+  xhr.setRequestHeader(csrf.header, csrf.token);
 
   var target = options.target || document;
   if(!runEvent(target, 'ajax:beforeSend', { xhr: xhr, options: options })) return;

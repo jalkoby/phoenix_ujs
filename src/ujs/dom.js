@@ -16,11 +16,11 @@ function parentLink(node) {
   else return parentLink(node.parentNode);
 }
 
-module.exports = {
+export default {
   acquireLink: function(node) {
     var link = parentLink(node);
     if(link && isMatched.call(link, '[ujs-method], [ujs-remote]')) return link;
   },
   isDisabled: node => isMatched.call(node, '[disabled]'),
-  isRemoteForm: node => isMatched.call(node, '[ujs-remote]')
-}
+  isRemote: node => node.hasAttribute('ujs-remote') && node.getAttribute('ujs-remote') != 'false'
+};

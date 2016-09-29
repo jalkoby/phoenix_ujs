@@ -1,3 +1,5 @@
+import csrf from "./csrf";
+import dom from "./dom";
 import xhr from "./xhr";
 
 function addParam(form, name, value) {
@@ -14,18 +16,17 @@ function submit(url, method) {
   form.action = url;
   form.style.display = 'none';
 
-  addParam(form, UJS.csrf.param, UJS.csrf.token);
-  if(method != 'POST') addParam(form, '_method', method);
+  addParam(form, csrf.param, csrf.token);
+  if(method != 'POST') addParam(form, csrf.method, method);
 
   document.body.appendChild(form);
   form.submit();
 }
 
-module.exports = function(link, e) {
-  var method = link.getAttribute('ujs-method') || 'GET',
-    isRemote = link.getAttribute('ujs-remote');
+export default function(link, e) {
+  var method = (link.getAttribute('ujs-method') || 'GET').toUpperCase();
 
-  if(isRemote) {
+  if(dom.isRemote(link)) {
     xhr(link.href, method, { target: link });
     return true;
 

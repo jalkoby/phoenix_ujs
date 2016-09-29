@@ -2,23 +2,15 @@ import dom from "./ujs/dom";
 import handleLinkClick from "./ujs/link";
 import handleFormSubmit from "./ujs/form";
 import xhr from "./ujs/xhr";
+import csrf from "./ujs/csrf";
 
-var UJS = (function(csrfNode) {
-  if(!csrfNode) throw "You did not add `ujs_init` in the header or insert this script before it";
+var UJS = {
+  confirm: (message) => window.confirm(message),
+  csrf: csrf,
+  xhr: xhr
+}
 
-  return {
-    askConfirmOn: function(node) {
-      return node.hasAttribute('ujs-confirm') ? this.confirm(node.getAttribute('ujs-confirm')) : true
-    },
-    confirm: (message) => window.confirm(message),
-    csrf: {
-      // in the case of using the library without view helpers
-      param: (csrfNode.getAttribute('ujs-param') || "_csrf_token"),
-      token: csrfNode.getAttribute('content')
-    },
-    xhr: xhr
-  }
-})(document.head.querySelector('meta[name="ujs-csrf"]'));
+let askConfirmOn = (node) => node.hasAttribute('ujs-confirm') ? UJS.confirm(node.getAttribute('ujs-confirm')) : true
 
 document.addEventListener('click', function(e) {
   // Only left click allowed. Firefox triggers click event on right click/contextmenu.
@@ -26,7 +18,7 @@ document.addEventListener('click', function(e) {
 
   var link = dom.acquireLink(e.target);
   if(!link) return;
-  if(dom.isDisabled(link) || !UJS.askConfirmOn(link) || handleLinkClick(link)) {
+  if(dom.isDisabled(link) || !askConfirmOn(link) || handleLinkClick(link)) {
     e.preventDefault();
   }
 }, false);
@@ -34,7 +26,7 @@ document.addEventListener('click', function(e) {
 document.addEventListener('submit', function(e) {
   var form = e.target;
 
-  if(dom.isDisabled(form) || !UJS.askConfirmOn(form) || handleFormSubmit(form)) {
+  if(dom.isDisabled(form) || !askConfirmOn(form) || handleFormSubmit(form)) {
     e.preventDefault();
   }
 });
@@ -43,9 +35,9 @@ document.addEventListener('load', function ujsInit() {
   // executes only once
   document.removeEventListener('load', ujsInit, false);
   // make sure that all forms have actual up-to-date tokens (cached forms contain old ones)
-  document.querySelectorAll('form input[name="' + UJS.csrf.param + '"]').forEach(function(input) {
-    input.value = UJS.csrf.token;
+  document.querySelectorAll('form input[name="' + csrf.param + '"]').forEach(function(input) {
+    input.value = csrf.token;
   });
 }, false);
 
-window.UJS = UJS;
+export default UJS;
