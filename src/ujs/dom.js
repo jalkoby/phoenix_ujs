@@ -8,12 +8,12 @@ var isMatched = (function() {
     function() { return false }
 })();
 
-const stopLinkTags = ['DIV', 'FORM', 'BODY', 'TD', 'TR', 'LI', 'UL'];
+const stopLinkTags = ['DIV', 'FORM', 'BODY', 'HTML', 'TD', 'TR', 'LI', 'UL'];
 
 function parentLink(node) {
   if(node.tagName == 'A') return node;
   else if(stopLinkTags.indexOf(node.tagName) >= 0) return;
-  else return parentLink(node.parentNode);
+  else if(node.parentNode) return parentLink(node.parentNode);
 }
 
 export default {
