@@ -40,9 +40,9 @@ To setup your backend - open layout file and add next at the top of the **<head>
 ```html
 <html>
   <head>
-    <!-- example for Phoenix framework 2.7.1+ -->
+    <!-- example for Phoenix.HTML 2.7.1+ -->
     <%= csrf_meta_tag %>
-    <!-- example for Phoenix framework 2.7.0 and below-->
+    <!-- example for Phoenix.HTML 2.7.0 and below-->
     <meta name="csrf-token" content="<%= get_csrf_token() %>"/>
     <!-- also meta tag can contain the next setting-attributes:
       csrf-param="_csrf_token"
@@ -82,6 +82,9 @@ To setup your backend - open layout file and add next at the top of the **<head>
   <!--  AJAX form submitting -->
 </form>
 ```
+
+## License
+[MIT](./LICENSE.txt) © [Sergey Pchelintsev](http://www.sergeyp.me)
 
 ## TODO
 - tests
