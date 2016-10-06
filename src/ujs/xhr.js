@@ -39,6 +39,8 @@ export default function(url, method, options) {
   xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
   xhr.setRequestHeader(csrf.header, csrf.token);
 
+  let headers = options.headers || {};
+  Object.keys(headers).forEach(k => xhr.setRequestHeader(k, headers[k]));
   var target = options.target || document;
   if(!runEvent(target, 'ajax:beforeSend', { xhr: xhr, options: options })) return;
 
