@@ -1,6 +1,6 @@
 {
   "name": "phoenix_ujs",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Unobtrusive JS toolset for Phoenix framework",
   "main": "ujs.cjs.js",
   "repository": "git@github.com:jalkoby/phoenix_ujs.git",
