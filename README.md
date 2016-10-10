@@ -53,6 +53,8 @@ To setup your backend - open layout file and add next at the top of the **<head>
 
 ## Usage
 
+### Markup
+
 ```html
 <!-- to specify non-get method add `ujs-method` -->
 <a href="/request/post" ujs-method="post">Make a POST request</a>
@@ -82,6 +84,50 @@ To setup your backend - open layout file and add next at the top of the **<head>
   <!--  AJAX form submitting -->
 </form>
 ```
+
+### JS API
+
+The library exports module (window.UJS in browser version) with the next properties:
+
+- `confirm` - the confirmation function which accepts a message as the first argument. You can override it for your needs
+- `csrf` - a CSRF configuration object:
+  - `token`  - a current CSRF token. You can skip the meta tag in the header and put the token in runtime
+  - `header` - a header used for CSRF requests
+  - `param`  - a query/form param used for CSRF requests
+- `xhr` - the AJAX contructor
+
+```js
+var UJS = require("phoenix_ujs");
+
+UJS.xhr(method, url, options);
+
+// a simple get request
+// all ajax events (ajax:beforeSend, ajax:success, ...) will be triggered on document
+UJS.xhr("GET", "/api/ping", {
+  success: function(xhr) {
+    console.log("pong");
+  }
+});
+
+UJS.xhr("POST", "/api/posts", {
+  type: 'json', // convert data into json, set Content-Type & Accept headers
+  data: { post: { title: "The first post", body: "Hello world!" } }, // the request's payload
+  success: function(xhr) {
+    alert("The post has been published");
+  }
+});
+```
+`options` accepts the next params:
+- `headers` - additional headers
+- `target` - js event target (by default - document)
+- `beforeSend` - the callback before xhr executed. It passes the config with **xhr** & **options** properties. `return false` will stop the ajax request
+- `success` - the success callback (200 <= status_code < 300)
+- `error` - the error callback (status_code >= 400)
+- `complete` - the complete callback (any status_code)
+- `type` - indicated additional processings;
+  - "json" - converts data into json string, sets Content-Type & Accept headers to `application/json`
+  - "text" - sets Content-Type & Accept headers to `text/plain`
+  - Array(2..3) - sets Content-Type - the first array's element, sets Accept - the second array's element and process data with the third element (if it's exist)
 
 ## License
 [MIT](./LICENSE.txt) © [Sergey Pchelintsev](http://www.sergeyp.me)

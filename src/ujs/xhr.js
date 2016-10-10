@@ -24,7 +24,7 @@ function setXHRData(xhr, data, type) {
   } else if(typeof type == 'object') {
     xhr.setRequestHeader('Content-type', type[0]);
     xhr.setRequestHeader('Accept', type[1]);
-    return data;
+    return (typeof type[2] == 'function') ? type[2](data) : data;
 
   } else {
     return data;
@@ -42,11 +42,15 @@ export default function(url, method, options) {
   let headers = options.headers || {};
   Object.keys(headers).forEach(k => xhr.setRequestHeader(k, headers[k]));
   var target = options.target || document;
-  if(!runEvent(target, 'ajax:beforeSend', { xhr: xhr, options: options })) return;
 
-  var onSuccess = options.success || noop,
+  var onBeforeSend = options.beforeSend,
+    beforeSendArg = { xhr: xhr, options: options },
+    onSuccess = options.success || noop,
     onError = options.error || noop,
     onComplete = options.complete || noop;
+
+  if(onBeforeSend && onBeforeSend(beforeSendArg) === false) return xhr;
+  if(!runEvent(target, 'ajax:beforeSend', beforeSendArg)) return xhr;
 
   xhr.addEventListener('load', function () {
     if(xhr.status >= 200 && xhr.status < 300) {
