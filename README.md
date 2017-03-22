@@ -129,6 +129,9 @@ UJS.xhr("POST", "/api/posts", {
   - "text" - sets Content-Type & Accept headers to `text/plain`
   - Array(2..3) - sets Content-Type - the first array's element, sets Accept - the second array's element and process data with the third element (if it's exist)
 
+## Old browser support
+If you're working on a project with old browsers support (IE 9-, Android 2.x, etc) - the library will not work unless you add a polyfill for FormData. For example this one https://www.npmjs.com/package/js-polyfills
+
 ## License
 [MIT](./LICENSE.txt) © [Sergey Pchelintsev](http://www.sergeyp.me)
 
