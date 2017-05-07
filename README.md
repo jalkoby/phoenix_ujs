@@ -128,6 +128,22 @@ UJS.xhr("POST", "/api/posts", {
   - "json" - converts data into json string, sets Content-Type & Accept headers to `application/json`
   - "text" - sets Content-Type & Accept headers to `text/plain`
   - Array(2..3) - sets Content-Type - the first array's element, sets Accept - the second array's element and process data with the third element (if it's exist)
+  
+## Things which are not included
+
+- executing a response js code. It's highly recommended to not do it, but if you need - there's an example:
+
+```js
+document.addEventListener('ajax:success', function(e) {
+  if(e.target && e.target.hasAttribute('ujs-eval')) {
+    eval(e.data.xhr.responseText);
+  }
+});
+```
+
+```html
+<a href="/some/url" ujs-method="get" ujs-remote ujs-eval>Eval the server code</a>
+```
 
 ## Old browser support
 If you're working on a project with old browsers support (IE 9-, Android 2.x, etc) - the library will not work unless you add a polyfill for FormData. For example this one https://www.npmjs.com/package/js-polyfills
