@@ -128,7 +128,42 @@ UJS.xhr("POST", "/api/posts", {
   - "json" - converts data into json string, sets Content-Type & Accept headers to `application/json`
   - "text" - sets Content-Type & Accept headers to `text/plain`
   - Array(2..3) - sets Content-Type - the first array's element, sets Accept - the second array's element and process data with the third element (if it's exist)
-  
+
+## AJAX events
+
+Each ajax request triggers the following events:
+
+- `ajax:beforeSend` is triggered before making an ajax call. In this event you can cancel the ajax request:
+```js
+document.addEventListener('ajax:beforeSend', function(e) {
+   if(e.target.nodeName === 'I') {
+     // if <i> triggered an ajax request - stop the ajax
+     e.preventDefault();
+   } else {
+     e.data.xhr.setRequestHeader('my-vendor-header', e.data.options.someValue);
+   }
+});
+```
+- `ajax:success` is triggered after getting an response and response is 2xx.
+```js
+document.addEventListener('ajax:success', function(e) {
+  console.log(e.data.xhr.responseText);
+});
+```
+
+- `ajax:error` is triggered after getting an response and response is 4xx or 5xx.
+```js
+document.addEventListener('ajax:success', function(e) {
+  console.error(e.data.xhr.responseText);
+});
+```
+
+- `ajax:complete` is triggered after any response:
+```js
+document.addEventListener('ajax:success', function(e) {
+  console.log(e.data.xhr.responseText);
+});
+```
 ## Things which are not included
 
 - executing a response js code. It's highly recommended to not do it, but if you need - there's an example:
