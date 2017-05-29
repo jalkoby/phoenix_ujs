@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The UJS demo</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous"/>
+  <meta name="csrf-token" content="csrf-token" />
+  <style>
+    .btn-post { background: #4CAF50; color: #fff; }
+    .btn-put { background: #ffeb3b; }
+    .btn-delete { background: #f44336; color: #fff; }
+    .pure-menu-horizontal { background: #eee; }
+    .container { margin: 60px 30px 0; }
+    .ujs-result { margin-top: 20px; width: 100%; height: 180px; }
+  </style>
+</head>
+<body>
+  <div class="pure-menu pure-menu-horizontal">
+    <a href="#" class="pure-menu-heading">phoenix_ujs</a>
+  </div>
+
+  <div class="container">
+    <div class="ujs-btns">
+      <a class="pure-button btn-post" href="https://httpbin.org/post?phoenix_ujs=post" ujs-method="post" ujs-remote>Make POST</a>
+      <a class="pure-button btn-put" href="https://httpbin.org/put?phoenix_ujs=put" ujs-method="put" ujs-remote>Make PUT</a>
+      <a class="pure-button btn-delete" href="https://httpbin.org/delete?phoenix_ujs=delete" ujs-method="delete" ujs-remote>Make DELETE</a>
+    </div>
+
+    <textarea id="ujs-result" class="ujs-result"></textarea>
+  </div>
+
+  <script src="/dist/ujs.min.js"></script>
+  <script type="text/javascript">
+    var ujsLinkResp = document.getElementById('ujs-result');
+
+    document.addEventListener('ajax:beforeSend', function() {
+      ujsLinkResp.innerText = '';
+    });
+
+    document.addEventListener('ajax:complete', function(e) {
+      var xhr = e.data.xhr;
+      ujsLinkResp.innerText = JSON.stringify(JSON.parse(xhr.responseText), null, 2);
+    });
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@
   "main": "ujs.cjs.js",
   "repository": "git@github.com:jalkoby/phoenix_ujs.git",
   "scripts": {
-    "release": "node ./build.js && npm publish ./dist"
+    "release": "./bin/build.js && npm publish ./dist"
   },
   "author": "Sergey Pchelintsev",
   "license": "MIT",
@@ -15,10 +15,12 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
     "del": "^2.2.2",
+    "express": "^4.15.3",
     "rollup": "^0.36.1",
-    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-browser": "^0.1.0",
     "rollup-plugin-commonjs": "^5.0.4",
     "rollup-plugin-uglify": "^1.0.1"
