@@ -41,7 +41,7 @@ To setup your backend - open layout file and add next at the top of the **<head>
 <html>
   <head>
     <!-- example for Phoenix.HTML 2.7.1+ -->
-    <%= csrf_meta_tag %>
+    <%= csrf_meta_tag() %>
     <!-- example for Phoenix.HTML 2.7.0 and below-->
     <meta name="csrf-token" content="<%= get_csrf_token() %>"/>
     <!-- also meta tag can contain the next setting-attributes:
