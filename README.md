@@ -99,17 +99,17 @@ The library exports module (window.UJS in browser version) with the next propert
 ```js
 var UJS = require("phoenix_ujs");
 
-UJS.xhr(method, url, options);
+UJS.xhr(url, method, options);
 
 // a simple get request
 // all ajax events (ajax:beforeSend, ajax:success, ...) will be triggered on document
-UJS.xhr("GET", "/api/ping", {
+UJS.xhr("/api/ping", "GET", {
   success: function(xhr) {
     console.log("pong");
   }
 });
 
-UJS.xhr("POST", "/api/posts", {
+UJS.xhr("/api/posts", "POST", {
   type: 'json', // convert data into json, set Content-Type & Accept headers
   data: { post: { title: "The first post", body: "Hello world!" } }, // the request's payload
   success: function(xhr) {
