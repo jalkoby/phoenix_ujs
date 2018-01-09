@@ -1,11 +1,12 @@
 {
   "name": "phoenix_ujs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Unobtrusive JS toolset for Phoenix framework",
   "main": "ujs.cjs.js",
   "repository": "git@github.com:jalkoby/phoenix_ujs.git",
   "scripts": {
-    "release": "./bin/build.js && npm publish ./dist"
+    "demo": "node ./demo/index.js",
+    "release": "./bin/build && npm publish ./dist"
   },
   "author": "Sergey Pchelintsev",
   "license": "MIT",
