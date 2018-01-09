@@ -26,6 +26,30 @@
     </div>
 
     <textarea id="ujs-result" class="ujs-result"></textarea>
+
+    <fieldset>
+      <legend>GET form</legend>
+      <form method="GET" action="https://httpbin.org/get" ujs-remote>
+        <input type="search" name="q" placeholder="Search..." />
+        <button type="submit">Go</button>
+      </form>
+    </fieldset>
+
+    <fieldset>
+      <legend>POST form</legend>
+      <form method="post" action="https://httpbin.org/post" ujs-remote>
+        <input type="search" name="q" placeholder="Search..." />
+        <button type="submit">Go</button>
+      </form>
+    </fieldset>
+
+    <fieldset>
+      <legend>GET form with predefined query</legend>
+      <form method="get" action="https://httpbin.org/get?predefined=true" ujs-remote>
+        <input type="search" name="q" placeholder="Search..." />
+        <button type="submit">Go</button>
+      </form>
+    </fieldset>
   </div>
 
   <script src="/dist/ujs.min.js"></script>
