@@ -36,7 +36,7 @@ export default function(url, method, options) {
 
   var xhr = new XMLHttpRequest();
   xhr.open(method, url);
-  xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
+  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhr.setRequestHeader(csrf.header, csrf.token);
 
   let headers = options.headers || {};
