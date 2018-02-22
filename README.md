@@ -153,14 +153,14 @@ document.addEventListener('ajax:success', function(e) {
 
 - `ajax:error` is triggered after getting an response and response is 4xx or 5xx.
 ```js
-document.addEventListener('ajax:success', function(e) {
+document.addEventListener('ajax:error', function(e) {
   console.error(e.data.xhr.responseText);
 });
 ```
 
 - `ajax:complete` is triggered after any response:
 ```js
-document.addEventListener('ajax:success', function(e) {
+document.addEventListener('ajax:complete', function(e) {
   console.log(e.data.xhr.responseText);
 });
 ```
